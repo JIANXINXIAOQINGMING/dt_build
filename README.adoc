@@ -1,0 +1,12 @@
+== How To Build
+
+[source,]
+----
+$ ./dtc --veriosn
+Version: DTC 1.4.1-gb06e55c8
+$ make clean
+$ make
+----
+
+
+
