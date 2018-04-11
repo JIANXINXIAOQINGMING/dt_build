@@ -25,6 +25,7 @@
 		adi,refa-r-div = <200>;
 		adi,refb-r-div = <200>;
 		adi,pll1-feedback-div = <50>;
+		adi,pll1-charge-pump-current-nA = <50000>;
 		adi,zero-delay-mode-internal-enable = <1>;
 
 		spi-max-frequency = <1000000>;
@@ -38,21 +39,30 @@
 		adi,pll2-r2-div = <1>;//R分频为1
 		adi,pll2-vco-diff-m1 = <5>;//M分频为6，VCO频率为30.72*120/6=614.4
 
-		adi,rpole2 = <6>;
+		adi,rpole2 = <225>;
 		adi,rzero = <0>;
 		adi,cpole1 = <0>;//参考版本0XF5读取为C0
 
-		ad9523_0_c3:channel@3 {
-			reg = <3>;
+		ad9523_0_c2:channel@2 {
+			reg = <2>;
 			adi,extended-name = "Extclkout";
 			adi,driver-mode = <3>;
 			adi,divider-phase = <0>;
 			adi,channel-divider = <5>;
 //			adi,output-enable;
 		};
+		ad9523_0_c3:channel@3 {
+			reg = <3>;
+			adi,extended-name = "GTREFCLK1";
+			adi,driver-mode = <3>;
+			adi,divider-phase = <0>;
+			adi,channel-divider = <5>;
+//			adi,output-enable;
+		};
+
 		ad9523_0_c4:channel@4 {
 			reg = <4>;
-			adi,extended-name = "GTREFCLK1";
+			adi,extended-name = "GTREFCLK0";
 			adi,driver-mode = <3>;
 			adi,divider-phase = <0>;
 			adi,channel-divider = <5>;
@@ -61,23 +71,15 @@
 
 		ad9523_0_c5:channel@5 {
 			reg = <5>;
-			adi,extended-name = "GTREFCLK0";
-			adi,driver-mode = <3>;
-			adi,divider-phase = <0>;
-			adi,channel-divider = <5>;
-//			adi,output-enable;
-		};
-
-		ad9523_0_c6:channel@6 {
-			reg = <10>;
 			adi,extended-name = "AD937X_CLK";
 			adi,driver-mode = <3>;
 			adi,divider-phase = <0>;
 			adi,channel-divider = <5>;
 //			adi,output-enable;
 		};
-		ad9523_0_c11:channel@11 {
-			reg = <11>;
+
+		ad9523_0_c10:channel@10 {
+			reg = <10>;
 			adi,extended-name = "FPGA_CLK";
 			adi,driver-mode = <3>;
 			adi,divider-phase = <0>;
