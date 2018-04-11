@@ -37,7 +37,7 @@
 		adi,pll2-ndiv-b-cnt = <30>;//N2=P*b+a=120
 
 		adi,pll2-r2-div = <1>;//R分频为1
-		adi,pll2-vco-diff-m1 = <5>;//M分频为6，VCO频率为30.72*120/6=614.4
+		adi,pll2-vco-diff-m1 = <6>;//M分频为6，VCO频率为30.72*120/6=614.4
 
 		adi,rpole2 = <225>;
 		adi,rzero = <0>;
