@@ -186,19 +186,8 @@
 			interrupts = <0 26 4>;
 			clocks = <&clkc 25>, <&clkc 34>;
 			clock-names = "ref_clk", "pclk";
-			num-chip-select = <2>;
 			#address-cells = <1>;
-			#size-cells = <0>;
-			//spidev@0{
-			//	compatible="spidev";
-			//	reg =<0>; //chipselect 0
-			//	spi-max-frequency= <1000000>;
-			//};
-			//spidev@1{
-			//	compatible="spidev";
-			//	reg =<1>; //chipselect 1
-			//	spi-max-frequency= <1000000>;
-			//};		
+			#size-cells = <0>;	
 		};
 
 		spi1: spi@e0007000 {
