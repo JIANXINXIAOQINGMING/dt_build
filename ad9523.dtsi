@@ -99,7 +99,8 @@
 		spi-max-frequency = <1000000>;
 
 		/* Clocks */
-		clocks = <&clk0_ad9523 5>, <&clk0_ad9523 5>, <&clk0_ad9523 5>, <&clk0_ad9523 5>, <&clk0_ad9523 5>;
+		clocks = <&clk0_ad9523 5>, <&clk0_ad9523 5>, <&clk0_ad9523 5>, <&clk0_ad9523 5>, <&
+		clk0_ad9523 5>;
 		clock-names = "jesd_rx_clk", "jesd_tx_clk", "jesd_rx_os_clk", "dev_clk", "fmc_clk";
 		clock-output-names = "rx_sampl_clk", "rx_os_sampl_clk", "tx_sampl_clk";
 
@@ -108,7 +109,21 @@
 		adi,clocks-clk-pll-hs-div = <4>;
 		adi,clocks-clk-pll-vco-div = <2>;
 
+		/* rx framer */
+		adi,jesd204-rx-framer-m = <4>;
+		adi,jesd204-rx-framer-scramble = <1>;
+		adi,jesd204-rx-framer-serializer-lanes-enabled = <2>;
+
+		/* obs frame */
+		adi,jesd204-obs-framer-m = <2>;
+		adi,jesd204-obs-framer-scramble = <1>;
+		adi,jesd204-obs-framer-serializer-lanes-enabled = <1>;
 		adi,jesd204-obs-framer-over-sample = <0>;
+
+		/* tx deframer */
+		adi,jesd204-deframer-m = <4>;
+		adi,jesd204-deframer-scramble = <1>;
+		adi,jesd204-deframer-serializer-lanes-enabled = <3>;
 
 		adi,rx-profile-adc-div = <1>;
 		adi,rx-profile-rx-fir-decimation = <2>;
@@ -128,7 +143,7 @@
 		adi,obs-profile-rf-bandwidth_hz = <120000000>;
 		adi,obs-profile-rx-bbf-3db-corner_khz = <60000>;
 
-		adi,tx-profile-dac-div = <2.5>;
+		adi,tx-profile-dac-div = <1>; //DACDIV_2p5
 		adi,tx-profile-tx-fir-interpolation = <1>;
 		adi,tx-profile-thb1-interpolation = <2>;
 		adi,tx-profile-thb2-interpolation = <2>;
