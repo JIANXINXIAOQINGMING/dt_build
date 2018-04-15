@@ -179,16 +179,30 @@
 		};
 
 		spi0: spi@e0006000 {
-			compatible = "xlnx,zynq-spi-r1p6";
+			//compatible = "xlnx,zynq-spi-r1p6";
+			compatible = "cdns,spi-r1p6";
 			reg = <0xe0006000 0x1000>;
 			status = "okay";
 			interrupt-parent = <&intc>;
 			interrupts = <0 26 4>;
+			num-cs = <2>;
+			is-decoded-cs = <0>;
 			clocks = <&clkc 25>, <&clkc 34>;
 			clock-names = "ref_clk", "pclk";
 			#address-cells = <1>;
-			#size-cells = <0>;	
+			#size-cells = <0>;
+			//spidev0:spidev@0{
+			//	compatible="spidev";
+			//	reg =<1>; //chipselect 0
+			//	spi-max-frequency= <50000000>;
+			//};
+			//spidev1:spidev@1{
+			//	compatible="spidev";
+			//	reg =<1>; //chipselect 1
+			//	spi-max-frequency= <50000000>;
+			//}; 
 		};
+
 
 		spi1: spi@e0007000 {
 			compatible = "xlnx,zynq-spi-r1p6";
