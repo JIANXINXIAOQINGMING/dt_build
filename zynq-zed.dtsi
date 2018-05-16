@@ -12,6 +12,15 @@
 		bootargs = "console=ttyPS0,115200 root=/dev/mmcblk0p2 rw earlyprintk rootfstype=ext4 rootwait";
 		linux,stdout-path = "/amba@0/uart@E0001000";
 	};
+
+	usb_phy0: phy0 {
+		compatible = "ulpi-phy";
+		#phy-cells = <0>;
+		reg = <0xe0002000 0x1000>;
+		view-port = <0x0170>;
+		drv-vbus;
+	};
+
 };
 
 &eth {
@@ -25,9 +34,17 @@
 	};
 };
 
+
 &usb0 {
 	xlnx,phy-reset-gpio = <&gpio0 7 0>;
+	status = "okay";
+	//dr_mode = "peripheral";
+	dr_mode = "host";
+	usb-phy = <&usb_phy0>;
+
+
 };
+
 
 &qspi {
 	status = "okay";
@@ -39,25 +56,51 @@
 		compatible = "n25q128a11";
 		reg = <0x0>;
 		spi-max-frequency = <50000000>;
-		partition@0x00000000 {
-			label = "boot";
-			reg = <0x00000000 0x00500000>;
+//		partition@0x00000000 {
+//			label = "boot";
+//			reg = <0x00000000 0x00500000>;
+//		};
+//		partition@0x00500000 {
+//			label = "bootenv";
+//			reg = <0x00500000 0x00020000>;
+//		};
+//		partition@0x00520000 {
+//			label = "config";
+//			reg = <0x00520000 0x00020000>;
+//		};
+//		partition@0x00540000 {
+//			label = "image";
+//			reg = <0x00540000 0x00a80000>;
+//		};
+//		partition@0x00fc0000 {
+//			label = "spare";
+//			reg = <0x00fc0000 0x00000000>;
+//		};
+
+		partition@1 {
+			label = "QSPIFLASH.bootloader";
+			reg = <0x100000 0x020000>;	//0x020,000 =128KB
 		};
-		partition@0x00500000 {
-			label = "bootenv";
-			reg = <0x00500000 0x00020000>;
+		partition@2 {
+			label = "QSPIFLASH.bitstream";
+			reg = <0x120000 0x600000>;	//0x600,000 = 6MB
 		};
-		partition@0x00520000 {
-			label = "config";
-			reg = <0x00520000 0x00020000>;
+		partition@3 {
+			label = "QSPIFLASH.kernel";
+			reg = <0x720000 0x600000>;	//0x600,000 = 6MB
 		};
-		partition@0x00540000 {
-			label = "image";
-			reg = <0x00540000 0x00a80000>;
+		partition@4 {
+			label = "QSPIFLASH.devicetree";
+			reg = <0xD20000 0x020000>;	//0x020,000 =128KB
 		};
-		partition@0x00fc0000 {
-			label = "spare";
-			reg = <0x00fc0000 0x00000000>;
+		partition@5 {
+			label = "QSPIFLASH.rootfs";
+			reg = <0xD40000 0x00000000>;	//0xC00,000=12MB, 0x2000,000=32MB
 		};
+		//partition@6 {
+		//	label = "QSPIFLASH.data";
+		//	reg = <0x2D40000 0x00000000>;
+		//};
+
 	};
 };
