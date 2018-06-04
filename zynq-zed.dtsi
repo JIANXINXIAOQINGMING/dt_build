@@ -53,7 +53,7 @@
 	primary_flash: ps7-qspi@0 {
 		#address-cells = <1>;
 		#size-cells = <1>;
-		compatible = "n25q128a11";
+		compatible = "n25q512a11";
 		reg = <0x0>;
 		spi-max-frequency = <50000000>;
 //		partition@0x00000000 {
