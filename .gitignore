@@ -1,4 +1,5 @@
 .*
 *.dtb
+dt_ver.dtsi
 
 !.gitignore

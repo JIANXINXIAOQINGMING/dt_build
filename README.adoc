@@ -8,5 +8,14 @@ $ make clean
 $ make
 ----
 
+== Get devicetree version
+
+[source,]
+----
+$ cat /proc/device-tree/dt_ver/build_time
+$ cat /proc/device-tree/dt_ver/commit
+$ cat /proc/device-tree/dt_ver/builder
+----
+
 
 
