@@ -1,9 +1,7 @@
 /include/ "zynq.dtsi"
 
 / {
-	model = "Xilinx Zynq ZED";
-	//dtc_st = "2018-07-13 16:40:25";
-	//git_hash= "we323afdf33";
+	model = "Xilinx Zynq LTE800";
 /include/ "dt_ver.dtsi"
 	memory {
 		device_type = "memory";
