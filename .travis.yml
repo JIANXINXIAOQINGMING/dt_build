@@ -1,7 +1,7 @@
-sudo: false
+sudo: required
 dist: trusty
 before_install:
-- chmod +x dtci
+- chmod +x dtc
 script:
 - make
 deploy:
