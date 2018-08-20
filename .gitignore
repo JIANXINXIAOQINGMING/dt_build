@@ -3,3 +3,4 @@
 dt_ver.dtsi
 
 !.gitignore
+!.travis.yml
