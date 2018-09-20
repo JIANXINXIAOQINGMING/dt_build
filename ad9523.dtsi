@@ -4,6 +4,8 @@
 
 //#define fmc_spi spi0
 
+#include <ad9528.h>
+
 / {
 	clocks {
 
@@ -11,82 +13,95 @@
 };
 
 &spi0 {
-	clk0_ad9523: ad9523-1@0 {
-		#address-cells = <1>;
-		#size-cells = <0>;
-		#clock-cells = <1>;
-		compatible = "ad9523-1";
-		reg = <0>;
-		spi-cpol;
-		spi-cpha;
 
-		adi,ref-mode = <2>;
-		adi,osc-in-feedback-enable = <1>;
-		adi,pll1-loopfilter-rzero = <0>;
-		adi,refa-r-div = <200>;
-		adi,refb-r-div = <200>;
-		adi,pll1-feedback-div = <50>;
-		adi,pll1-charge-pump-current-nA = <4999>;
-		adi,zero-delay-mode-internal-enable = <1>;
-
-		spi-max-frequency = <1000000>;
-		clock-output-names = "ad9523-1_out0", "ad9523-1_out1", "ad9523-1_out2", "ad9523-1_out3", "ad9523-1_out4", "ad9523-1_out5","ad9523-1_out6", "ad9523-1_out7", "ad9523-1_out8", "ad9523-1_out9", "ad9523-1_out10", "ad9523-1_out11","ad9523-1_out12", "ad9523-1_out13";
-		adi,vcxo-freq = <30720000>;//VCXO频率
-
-		adi,pll2-charge-pump-current-nA = <889000>;//间隔为3.5uA，0~FF满程900uA，当前取FE=889uA
-		adi,pll2-ndiv-a-cnt = <0>;//P=4
-		adi,pll2-ndiv-b-cnt = <30>;//N2=P*b+a=120
-
-		adi,pll2-r2-div = <1>;//R分频为1
-		adi,pll2-vco-diff-m1 = <6>;//M分频为6，VCO频率为30.72*120/6=614.4
-
-		adi,rpole2 = <3>;
-		adi,rzero = <0>;
-		adi,cpole1 = <0>;//参考版本0XF5读取为C0
-
-		ad9523_0_c2:channel@2 {
-			reg = <2>;
-			adi,extended-name = "Extclkout";
-			adi,driver-mode = <3>;
-			adi,divider-phase = <0>;
-			adi,channel-divider = <5>;
-//			adi,output-enable;
-		};
-		ad9523_0_c3:channel@3 {
-			reg = <3>;
-			adi,extended-name = "GTREFCLK1";
-			adi,driver-mode = <3>;
-			adi,divider-phase = <0>;
-			adi,channel-divider = <5>;
-//			adi,output-enable;
-		};
-
-		ad9523_0_c4:channel@4 {
-			reg = <4>;
-			adi,extended-name = "GTREFCLK0";
-			adi,driver-mode = <3>;
-			adi,divider-phase = <0>;
-			adi,channel-divider = <5>;
-//			adi,output-enable;
-		};
-
-		ad9523_0_c5:channel@5 {
-			reg = <5>;
-			adi,extended-name = "AD937X_CLK";
-			adi,driver-mode = <3>;
-			adi,divider-phase = <0>;
-			adi,channel-divider = <5>;
-//			adi,output-enable;
-		};
-
-		ad9523_0_c10:channel@10 {
-			reg = <10>;
-			adi,extended-name = "FPGA_CLK";
-			adi,driver-mode = <3>;
-			adi,divider-phase = <0>;
-			adi,channel-divider = <5>;
-//			adi,output-enable;
-		};
+	clk0_ad9528: ad9528-1@0 {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			#clock-cells = <1>;
+			compatible = "ad9528";
+	
+			spi-max-frequency = <10000000>;
+			//adi,spi-3wire-enable;
+			reg = <0>;
+	
+			clock-output-names = "ad9528-1_out0", "ad9528-1_out1", "ad9528-1_out2", "ad9528-1_out3", "ad9528-1_out4", "ad9528-1_out5", 	"ad9528-1_out6", "ad9528-1_out7", "ad9528-1_out8", "ad9528-1_out9", "ad9528-1_out10", "ad9528-1_out11", "ad9528-1_out12", 	"ad9528-1_out13";
+			adi,vcxo-freq = <30720000>;
+	
+			adi,refa-enable;
+			adi,refa-diff-rcv-enable;
+			adi,refa-r-div = <1>;
+			//adi,osc-in-cmos-neg-inp-enable;
+	
+			/* PLL1 config */
+			adi,pll1-feedback-div = <1>;
+			adi,pll1-charge-pump-current-nA = <5000>;
+	
+	
+			/* PLL2 config */
+			adi,pll2-vco-diff-m1 = <3>; /* use 5 for 184320000 output device clock */
+			adi,pll2-n2-div = <40>; /* N / M1 */
+			adi,pll2-r1-div = <1>;
+			adi,pll2-charge-pump-current-nA = <805000>;
+	
+			/* SYSREF config */
+			adi,sysref-src = <SYSREF_SRC_INTERNAL>;
+			adi,sysref-pattern-mode = <SYSREF_PATTERN_CONTINUOUS>;
+			adi,sysref-k-div = <512>;
+			adi,sysref-request-enable;
+			adi,sysref-nshot-mode = <SYSREF_NSHOT_4_PULSES>;
+			adi,sysref-request-trigger-mode = <SYSREF_LEVEL_HIGH>;
+	
+			adi,rpole2 = <RPOLE2_900_OHM>;
+			adi,rzero = <RZERO_1850_OHM>;
+			adi,cpole1 = <CPOLE1_16_PF>;
+	
+			adi,status-mon-pin0-function-select = <1>; /* PLL1 & PLL2 Locked */
+			adi,status-mon-pin1-function-select = <7>; /* REFA Correct */
+	
+			ad9528_0_c0: channel@0 {
+				reg = <0>;
+				adi,extended-name = "TEST_CLK";
+				adi,driver-mode = <DRIVER_MODE_LVDS>;
+				adi,divider-phase = <0>;
+				adi,channel-divider = <10>;
+				adi,signal-source = <SOURCE_VCO>;
+			};
+	
+			ad9528_0_c6: channel@6 {
+				reg = <6>;
+				adi,extended-name = "GTP_MAIN_CLK";
+				adi,driver-mode = <DRIVER_MODE_LVDS>;
+				adi,divider-phase = <0>;
+				adi,channel-divider = <10>;
+				adi,signal-source = <SOURCE_VCO>;
+			};
+	
+			ad9528_0_c5: channel@5 {
+				reg = <5>;
+				adi,extended-name = "GTP_SECOND_CLK";
+				adi,driver-mode = <DRIVER_MODE_LVDS>;
+				adi,divider-phase = <0>;
+				adi,channel-divider = <10>;
+				adi,signal-source = <SOURCE_VCO>;
+			};
+	
+			ad9528_0_c7: channel@7 {
+				reg = <7>;
+				adi,extended-name = "AD937X_CLK";
+				adi,driver-mode = <DRIVER_MODE_LVDS>;
+				adi,divider-phase = <0>;
+				adi,channel-divider = <10>;
+				adi,signal-source = <SOURCE_SYSREF_VCO>;
+			};
+	
+			ad9528_0_c4: channel@4 {
+				reg = <4>;
+				adi,extended-name = "FPGA_CLK";
+				adi,driver-mode = <DRIVER_MODE_LVDS>;
+				adi,divider-phase = <0>;
+				adi,channel-divider = <10>;
+				adi,signal-source = <SOURCE_SYSREF_VCO>;
+			};
 	};
 
 	trx0_ad9371: ad9371-phy@1 {
@@ -100,7 +115,7 @@
 		spi-max-frequency = <1000000>;
 
 		/* Clocks */
-		clocks = <&clk0_ad9523 5>, <&clk0_ad9523 5>, <&clk0_ad9523 5>, <&clk0_ad9523 5>, <&clk0_ad9523 5>;
+		clocks = <&clk0_ad9528 7>, <&clk0_ad9528 7>, <&clk0_ad9528 7>, <&clk0_ad9528 7>, <&clk0_ad9528 6>;
 		clock-names = "jesd_rx_clk", "jesd_tx_clk", "jesd_rx_os_clk", "dev_clk", "fmc_clk";
 		clock-output-names = "rx_sampl_clk", "rx_os_sampl_clk", "tx_sampl_clk";
 
