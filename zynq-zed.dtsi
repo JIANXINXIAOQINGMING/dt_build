@@ -366,37 +366,37 @@
 		//-----------------------------------------
 		partition@3 {
 			label = "qspif.BIT";
-			reg = <0x00100000 0x00500000>;
+			reg = <0x00100000 0x00600000>;
 		};
 		partition@4 {
 			label = "qspif.KNL";
-			reg = <0x00600000 0x00500000>;
+			reg = <0x00700000 0x00500000>;
 		};
 		//-----------------------------------------
 		partition@5 {
 			label = "qspif.ROOTFS";
-			reg = <0x00B00000 0x01E00000>;
+			reg = <0x00C00000 0x01400000>;
 		};
 		partition@6 {
 			label = "qspif.APPDATA";
-			reg = <0x02900000 0x00C00000>;
+			reg = <0x02000000 0x01400000>;
 		};
 		//-----------------------------------------
 		partition@7 {
 			label = "qspif.BL.bak";
-			reg = <0x03500000 0x000C0000>;
+			reg = <0x03400000 0x000C0000>;
 		};
 		partition@8 {
 			label = "qspif.ENV.bak";
-			reg = <0x035C0000 0x00020000>;
+			reg = <0x034C0000 0x00020000>;
 		};
 		partition@9 {
 			label = "qspif.DT.bak";
-			reg = <0x035E0000 0x00020000>;
+			reg = <0x034E0000 0x00020000>;
 		};
 		partition@10 {
 			label = "qspif.BIT.bak";
-			reg = <0x03600000 0x00500000>;
+			reg = <0x03500000 0x00600000>;
 		};
 		partition@11 {
 			label = "qspif.KNL.bak";
