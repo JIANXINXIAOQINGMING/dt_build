@@ -351,7 +351,7 @@
 		spi-max-frequency = <50000000>;
 
 		partition@0 {
-			label = "qspif.BL";
+			label = "qspif.BLR";
 			reg = <0x00000000 0x000C0000>;
 		};
 
@@ -360,47 +360,48 @@
 			reg = <0x000C0000 0x00020000>;
 		};
 		partition@2 {
-			label = "qspif.DT";
+			label = "qspif.DTB";
 			reg = <0x000E0000 0x00020000>;
 		};
-		//-----------------------------------------
 		partition@3 {
-			label = "qspif.BIT";
-			reg = <0x00100000 0x00600000>;
-		};
-		partition@4 {
 			label = "qspif.KNL";
-			reg = <0x00700000 0x00500000>;
+			reg = <0x00100000 0x00500000>;
+		};
+		//-----------------------------------------
+		partition@4 {
+			label = "qspif.SYSROOT";
+			reg = <0x00600000 0x01400000>;
 		};
 		//-----------------------------------------
 		partition@5 {
-			label = "qspif.ROOTFS";
-			reg = <0x00C00000 0x01400000>;
+			label = "qspif.BIT";
+			reg = <0x01A00000 0x00600000>;
 		};
 		partition@6 {
-			label = "qspif.APPDATA";
-			reg = <0x02000000 0x01400000>;
+			label = "qspif.BIT.ext";
+			reg = <0x02000000 0x00700000>;
 		};
 		//-----------------------------------------
 		partition@7 {
-			label = "qspif.BL.bak";
-			reg = <0x03400000 0x000C0000>;
+			label = "qspif.APP";
+			reg = <0x02700000 0x01300000>;
 		};
+		//-----------------------------------------
 		partition@8 {
-			label = "qspif.ENV.bak";
-			reg = <0x034C0000 0x00020000>;
+			label = "qspif.KNL.bak";
+			reg = <0x03A00000 0x00500000>;
 		};
 		partition@9 {
-			label = "qspif.DT.bak";
-			reg = <0x034E0000 0x00020000>;
+			label = "qspif.DTB.bak";
+			reg = <0x03F00000 0x00020000>;
 		};
 		partition@10 {
-			label = "qspif.BIT.bak";
-			reg = <0x03500000 0x00600000>;
+			label = "qspif.ENV.bak";
+			reg = <0x03F20000 0x00020000>;
 		};
 		partition@11 {
-			label = "qspif.KNL.bak";
-			reg = <0x03B00000 0x00500000>;
+			label = "qspif.BLR.bak";
+			reg = <0x03F40000 0x000C0000>;
 		};
 
 	};
